@@ -3,13 +3,13 @@
 Small, SOLID library that loads flights + hotels (JSON) and finds the **best value** holiday for a request.
 
 ## How to run tests
+
+This project uses **xUnit**.  
+From the project root:
+
 ```bash
-dotnet test
-```
-## How to run in Docker
-```bash
-docker build -t holidaysearch .
-docker run --rm holidaysearch
+cd tests/Otb.HolidaySearch.Tests
+dotnet test -c Release
 ```
 
 ## How it works
@@ -136,8 +136,16 @@ The repo was built following **Test-Driven Development (TDD)**, with each step r
 
 ## Extend later
 
-- Add interfaces and repositories if the source is no longer JSON.
-
-- Expose the engine as a REST API.
-
+- Add interfaces and repositories if the data source changes (e.g., from JSON → database or API).
+- Expose the search engine as a REST API (ASP.NET Core minimal API or controllers).
 - Add multiple sorting modes (cheapest, best rated, fastest).
+- Introduce caching (e.g., in-memory or Redis) to improve performance on repeated queries.
+- Add CI/CD pipeline with automated test runs on GitHub Actions.
+- Improve test coverage with edge cases (invalid dates, missing airports, overlapping data).
+- Add Dockerfile to containerize the library and tests for consistent runtime across environments.
+- **Restructure into microservices** if scaling is required:
+  - Flight Service → owns flight data and logic.  
+  - Hotel Service → owns hotel data and logic.  
+  - Search Aggregator Service → calls both services, applies rules, returns results.  
+  - Shared contracts via REST or gRPC for communication.
+
